@@ -1,12 +1,16 @@
-body {
-  font-family: Arial, sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
   background: #f9f9f9;
   color: #333;
 }
 
 main {
+  flex: 1;
+  padding: 2rem;
   max-width: 600px;
   margin: auto;
   text-align: center;
