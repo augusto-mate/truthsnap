@@ -29,6 +29,8 @@ function analyzeText() {
     result.style.color = "green";
   }
 
+  <textarea id="inputText" autocomplete="off" placeholder="..."></textarea>
+
   // Clear textarea on page load
   window.onload = function () {
     document.getElementById("inputText").value = "";
