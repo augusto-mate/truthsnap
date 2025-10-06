@@ -1,6 +1,12 @@
 function analyzeText() {
-  const text = document.getElementById("inputText").value.toLowerCase();
+  const text = document.getElementById("inputText").value.trim();
   const result = document.getElementById("result");
+
+  if (text === "") {
+    result.textContent = "⚠️ Please enter some text before analyzing.";
+    result.style.color = "gray";
+    return;
+  }
 
   const redFlags = ["shocking", "you won't believe", "click here", "!!!", "miracle", "guaranteed", "everyone is talking", "BREAKING"];
   const capsCount = (text.match(/[A-Z]{2,}/g) || []).length;
