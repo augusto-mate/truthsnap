@@ -1,3 +1,13 @@
+// Clear textarea and result on page load
+window.onload = function () {
+  const input = document.getElementById("inputText");
+  const result = document.getElementById("result");
+  if (input && result) {
+    input.value = "";
+    result.textContent = "";
+  }
+};
+
 function analyzeText() {
   const text = document.getElementById("inputText").value.trim();
   const result = document.getElementById("result");
@@ -8,12 +18,22 @@ function analyzeText() {
     return;
   }
 
-  const redFlags = ["shocking", "you won't believe", "click here", "!!!", "miracle", "guaranteed", "everyone is talking", "BREAKING"];
+  const redFlags = [
+    "shocking",
+    "you won't believe",
+    "click here",
+    "!!!",
+    "miracle",
+    "guaranteed",
+    "everyone is talking",
+    "BREAKING"
+  ];
+
   const capsCount = (text.match(/[A-Z]{2,}/g) || []).length;
   let score = 0;
 
   redFlags.forEach(flag => {
-    if (text.includes(flag)) score++;
+    if (text.includes(flag.toLowerCase())) score++;
   });
 
   if (capsCount > 5) score++;
@@ -28,14 +48,4 @@ function analyzeText() {
     result.textContent = "✅ Likely trustworthy: No major red flags detected.";
     result.style.color = "green";
   }
-
-  <textarea id="inputText" autocomplete="off" placeholder="..."></textarea>
-
-  // Clear textarea on page load
-  window.onload = function () {
-    document.getElementById("inputText").value = "";
-    document.getElementById("result").textContent = "";
-  };
-
 }
-
