@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TruthSnap</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-  
 <body>
   <main>
     <h1>TruthSnap</h1>
     <p class="intro">Paste a text below and click "Analyze" to get a fake news risk assessment.</p>
-    <textarea id="inputText" placeholder="Paste news article or post here..."></textarea>
+    <textarea id="inputText" autocomplete="off" placeholder="Paste news article or post here..."></textarea>
     <button onclick="analyzeText()">Analyze</button>
     <div id="result"></div>
   </main>
-  
-  <script src="script.js"></script>
-  
+
   <footer>
-  Made with 💡 by Augusto Mate &middot; &copy; 2025
+    Made with 💡 by Augusto Mate &middot; &copy; 2025
   </footer>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
-
