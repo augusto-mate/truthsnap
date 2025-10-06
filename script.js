@@ -28,5 +28,12 @@ function analyzeText() {
     result.textContent = "✅ Likely trustworthy: No major red flags detected.";
     result.style.color = "green";
   }
+
+  // Clear textarea on page load
+  window.onload = function () {
+    document.getElementById("inputText").value = "";
+    document.getElementById("result").textContent = "";
+  };
+
 }
 
