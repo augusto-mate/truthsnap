@@ -9,8 +9,9 @@ window.onload = function () {
 };
 
 function analyzeText() {
-  const text = document.getElementById("inputText").value.trim();
+  const input = document.getElementById("inputText");
   const result = document.getElementById("result");
+  const text = input.value.trim();
 
   if (text === "") {
     result.textContent = "⚠️ Please enter some text before analyzing.";
@@ -29,13 +30,12 @@ function analyzeText() {
     "BREAKING"
   ];
 
-  const capsCount = (text.match(/[A-Z]{2,}/g) || []).length;
   let score = 0;
-
   redFlags.forEach(flag => {
-    if (text.includes(flag.toLowerCase())) score++;
+    if (text.toLowerCase().includes(flag.toLowerCase())) score++;
   });
 
+  const capsCount = (text.match(/[A-Z]{2,}/g) || []).length;
   if (capsCount > 5) score++;
 
   if (score >= 3) {
