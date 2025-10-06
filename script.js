@@ -1,51 +1,95 @@
-// Clear textarea and result on page load
-window.onload = function () {
-  const input = document.getElementById("inputText");
-  const result = document.getElementById("result");
-  if (input && result) {
-    input.value = "";
-    result.textContent = "";
+let debugMode = false;
+
+function toggleDebug() {
+  debugMode = !debugMode;
+  alert("Debug mode " + (debugMode ? "enabled" : "disabled"));
+}
+
+function analyze() {
+  const text = document.getElementById("inputText").value;
+  const { label, score, reasons } = analyzeText(text);
+
+  document.getElementById("result").innerText = label;
+  document.getElementById("details").innerHTML = `
+    <strong>Score:</strong> ${score}<br>
+    <strong>Reasons:</strong><br>
+    <ul>${reasons.map(r => `<li>${r}</li>`).join("")}</ul>
+  `;
+
+  if (debugMode) {
+    console.log("Score:", score);
+    console.log("Reasons:", reasons);
   }
-};
+}
 
-function analyzeText() {
-  const input = document.getElementById("inputText");
-  const result = document.getElementById("result");
-  const text = input.value.trim();
-
-  if (text === "") {
-    result.textContent = "⚠️ Please enter some text before analyzing.";
-    result.style.color = "gray";
-    return;
-  }
-
-  const redFlags = [
-    "shocking",
-    "you won't believe",
-    "click here",
-    "!!!",
-    "miracle",
-    "guaranteed",
-    "everyone is talking",
-    "BREAKING"
-  ];
-
+function analyzeText(text) {
   let score = 0;
-  redFlags.forEach(flag => {
-    if (text.toLowerCase().includes(flag.toLowerCase())) score++;
+  let reasons = [];
+
+  const upperCount = (text.match(/[A-Z]/g) || []).length;
+  const exclamations = (text.match(/!/g) || []).length;
+
+  const absoluteWords = ["always", "never", "everyone", "no one", "all", "none"];
+  const clickbaitWords = ["shocking", "you won’t believe", "secret", "hidden", "what happened next"];
+  const vagueSources = ["experts say", "some people claim", "they say", "studies show", "researchers believe"];
+
+  const conspiracyKeywords = ["microchip", "bill gates", "5g", "plandemic", "deep state"];
+
+  const textLower = text.toLowerCase();
+
+  // Excessive capitalization
+  if (upperCount > 30) {
+    score += 3;
+    reasons.push("Excessive use of uppercase letters.");
+  }
+
+  // Too many exclamation marks
+  if (exclamations > 3) {
+    score += 2;
+    reasons.push("Overuse of exclamation marks.");
+  }
+
+  // Absolute terms
+  absoluteWords.forEach(word => {
+    if (textLower.includes(word)) {
+      score += 1;
+      reasons.push(`Use of absolute term: "${word}"`);
+    }
   });
 
-  const capsCount = (text.match(/[A-Z]{2,}/g) || []).length;
-  if (capsCount > 5) score++;
+  // Clickbait language
+  clickbaitWords.forEach(word => {
+    if (textLower.includes(word)) {
+      score += 3;
+      reasons.push(`Possible sensational language: "${word}"`);
+    }
+  });
 
-  if (score >= 3) {
-    result.textContent = "❌ Warning: This content shows signs of possible misinformation.";
-    result.style.color = "red";
-  } else if (score === 2) {
-    result.textContent = "⚠️ Caution: Some indicators suggest bias or manipulation.";
-    result.style.color = "orange";
+  // Vague sources
+  vagueSources.forEach(phrase => {
+    if (textLower.includes(phrase)) {
+      score += 2;
+      reasons.push(`Vague source detected: "${phrase}"`);
+    }
+  });
+
+  // Conspiracy-related terms
+  conspiracyKeywords.forEach(keyword => {
+    if (textLower.includes(keyword)) {
+      score += 4;
+      reasons.push(`Reference to known conspiracy theory: "${keyword}"`);
+    }
+  });
+
+  // Final label based on score
+  let label;
+  if (score >= 8) {
+    label = "❌ Potentially Misleading";
+  } else if (score >= 4) {
+    label = "⚠️ Needs Caution";
   } else {
-    result.textContent = "✅ Likely trustworthy: No major red flags detected.";
-    result.style.color = "green";
+    label = "✅ Likely Trustworthy";
   }
+
+  return { label, score, reasons };
 }
