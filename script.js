@@ -46,19 +46,22 @@ function analyzeText(text) {
   const exclamations = (text.match(/!/g) || []).length;
 
   const absoluteWords = ["always", "never", "everyone", "no one", "all", "none"];
-  const clickbaitWords = ["shocking", "you won’t believe", "secret", "hidden", "what happened next"];
+  const clickbaitWords = [
+    "shocking", "you won’t believe", "secret", "hidden", "what happened next",
+    "miracle", "cure", "dangerous", "exposed", "banned", "explosive", "urgent"
+  ];
   const vagueSources = ["experts say", "some people claim", "they say", "studies show", "researchers believe"];
   const conspiracyKeywords = ["microchip", "bill gates", "5g", "plandemic", "deep state"];
 
   const textLower = text.toLowerCase();
 
   if (upperCount > 30) {
-    score += 3;
+    score += 4;
     reasons.push("Excessive use of uppercase letters.");
   }
 
-  if (exclamations > 3) {
-    score += 2;
+  if (exclamations > 2) {
+    score += 3;
     reasons.push("Overuse of exclamation marks.");
   }
 
@@ -91,9 +94,9 @@ function analyzeText(text) {
   });
 
   let label;
-  if (score >= 8) {
+  if (score >= 6) {
     label = "❌ Potentially Misleading";
-  } else if (score >= 4) {
+  } else if (score >= 3) {
     label = "⚠️ Needs Caution";
   } else {
     label = "✅ Likely Trustworthy";
