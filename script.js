@@ -104,3 +104,7 @@ function analyzeText(text) {
 
   return { label, score, reasons };
 }
+
+window.addEventListener("load", () => {
+  clearText(); // Clear all fields on page load
+});
