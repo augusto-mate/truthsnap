@@ -111,3 +111,10 @@ button:focus {
     font-size: 0.9rem;
   }
 }
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
