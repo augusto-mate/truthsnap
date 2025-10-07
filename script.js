@@ -58,16 +58,28 @@ function analyzeText(text) {
     "flat earth", "chemtrails", "illuminati", "crisis actors", "climate change hoax"
   ];
 
-  const knownFalseClaims = [
-    "vaccines cause autism",
-    "moon landing was fake",
-    "earth is flat",
-    "climate change is a hoax"
+  const fakeClaimPatterns = [
+    {
+      keywords: ["vaccines", "autism"],
+      reason: "Reference to debunked link between vaccines and autism."
+    },
+    {
+      keywords: ["moon landing", "fake"],
+      reason: "Claim suggesting the moon landing was faked."
+    },
+    {
+      keywords: ["earth", "flat"],
+      reason: "Flat Earth theory reference."
+    },
+    {
+      keywords: ["climate change", "hoax"],
+      reason: "Denial of scientifically proven climate change."
+    }
   ];
 
   const textLower = text.toLowerCase();
 
-  // Apply weights
+  // Heuristics
   if (upperCount > 20) {
     score += 4;
     reasons.push("Excessive use of uppercase letters.");
@@ -106,10 +118,11 @@ function analyzeText(text) {
     }
   });
 
-  knownFalseClaims.forEach(claim => {
-    if (textLower.includes(claim)) {
+  fakeClaimPatterns.forEach(pattern => {
+    const match = pattern.keywords.every(word => textLower.includes(word));
+    if (match) {
       score += 5;
-      reasons.push(`Known false claim detected: "${claim}"`);
+      reasons.push(pattern.reason);
     }
   });
 
@@ -125,7 +138,7 @@ function analyzeText(text) {
   return { label, score, reasons };
 }
 
-// Ensure fresh state on reload
+// Clear content on page load
 window.addEventListener("load", () => {
   clearText();
 });
