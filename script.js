@@ -5,7 +5,16 @@ function toggleDebug() {
   alert("Debug mode " + (debugMode ? "enabled" : "disabled"));
 }
 
+function clearText() {
+  document.getElementById("inputText").value = "";
+  document.getElementById("result").innerText = "";
+  document.getElementById("details").innerHTML = "";
+}
+
 function analyze() {
+  document.getElementById("result").innerText = "";
+  document.getElementById("details").innerHTML = "";
+
   const text = document.getElementById("inputText").value;
   const { label, score, reasons } = analyzeText(text);
 
