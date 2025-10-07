@@ -42,6 +42,16 @@ function analyzeText(text) {
   let score = 0;
   let reasons = [];
 
+  const normalize = str =>
+    str
+      .toLowerCase()
+      .replace(/[“”‘’'"’]/g, "")
+      .replace(/[^\w\s]/gi, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const input = normalize(text);
+
   const upperCount = (text.match(/[A-Z]/g) || []).length;
   const exclamations = (text.match(/!/g) || []).length;
 
@@ -80,70 +90,68 @@ function analyzeText(text) {
       weight: 7
     },
     {
-      keywords: ["government", "hiding", "truth"],
-      reason: "General claim of hidden government secrets or coverups.",
+      keywords: ["government", "hiding", "aliens"],
+      reason: "Classic conspiracy about government hiding alien contact.",
       weight: 6
     },
     {
-      keywords: ["government", "hiding", "aliens"],
-      reason: "Classic conspiracy about government hiding alien contact.",
+      keywords: ["government", "hiding", "truth"],
+      reason: "Claim of hidden government secrets or coverups.",
       weight: 6
     }
   ];
 
-  const textLower = text.toLowerCase();
-
-  // Heuristics
+  // Apply heuristic patterns
   if (upperCount > 20) {
-    score += 4;
+    score += 3;
     reasons.push("Excessive use of uppercase letters.");
   }
 
   if (exclamations > 2) {
-    score += 3;
+    score += 2;
     reasons.push("Overuse of exclamation marks.");
   }
 
   absoluteWords.forEach(word => {
-    if (textLower.includes(word)) {
+    if (input.includes(word)) {
       score += 1;
       reasons.push(`Use of absolute term: "${word}"`);
     }
   });
 
   clickbaitWords.forEach(word => {
-    if (textLower.includes(word)) {
-      score += 3;
+    if (input.includes(word)) {
+      score += 2;
       reasons.push(`Possible sensational language: "${word}"`);
     }
   });
 
   vagueSources.forEach(phrase => {
-    if (textLower.includes(phrase)) {
+    if (input.includes(phrase)) {
       score += 2;
-      reasons.push(`Vague source detected: "${phrase}"`);
+      reasons.push(`Vague or unverified source: "${phrase}"`);
     }
   });
 
   conspiracyKeywords.forEach(keyword => {
-    if (textLower.includes(keyword)) {
-      score += 4;
-      reasons.push(`Reference to conspiracy theory: "${keyword}"`);
+    if (input.includes(keyword)) {
+      score += 3;
+      reasons.push(`Reference to conspiracy keyword: "${keyword}"`);
     }
   });
 
-  fakeClaimPatterns.forEach(pattern => {
-    const match = pattern.keywords.every(word => textLower.includes(word));
+  fakeClaimPatterns.forEach(({ keywords, reason, weight }) => {
+    const match = keywords.every(word => input.includes(word));
     if (match) {
-      score += pattern.weight;
-      reasons.push(pattern.reason);
+      score += weight;
+      reasons.push(reason);
     }
   });
 
   let label;
-  if (score >= 6) {
+  if (score >= 7) {
     label = "❌ Potentially Misleading";
-  } else if (score >= 3) {
+  } else if (score >= 4) {
     label = "⚠️ Needs Caution";
   } else {
     label = "✅ Likely Trustworthy";
@@ -152,7 +160,7 @@ function analyzeText(text) {
   return { label, score, reasons };
 }
 
-// Clear content on page load
+// Clear content on load
 window.addEventListener("load", () => {
   clearText();
 });
