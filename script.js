@@ -12,10 +12,17 @@ function clearText() {
 }
 
 function analyze() {
+  const text = document.getElementById("inputText").value.trim();
+
+  // Clear previous results
   document.getElementById("result").innerText = "";
   document.getElementById("details").innerHTML = "";
 
-  const text = document.getElementById("inputText").value;
+  if (!text) {
+    document.getElementById("result").innerText = "⚠️ Please enter some text.";
+    return;
+  }
+
   const { label, score, reasons } = analyzeText(text);
 
   document.getElementById("result").innerText = label;
@@ -41,24 +48,20 @@ function analyzeText(text) {
   const absoluteWords = ["always", "never", "everyone", "no one", "all", "none"];
   const clickbaitWords = ["shocking", "you won’t believe", "secret", "hidden", "what happened next"];
   const vagueSources = ["experts say", "some people claim", "they say", "studies show", "researchers believe"];
-
   const conspiracyKeywords = ["microchip", "bill gates", "5g", "plandemic", "deep state"];
 
   const textLower = text.toLowerCase();
 
-  // Excessive capitalization
   if (upperCount > 30) {
     score += 3;
     reasons.push("Excessive use of uppercase letters.");
   }
 
-  // Too many exclamation marks
   if (exclamations > 3) {
     score += 2;
     reasons.push("Overuse of exclamation marks.");
   }
 
-  // Absolute terms
   absoluteWords.forEach(word => {
     if (textLower.includes(word)) {
       score += 1;
@@ -66,7 +69,6 @@ function analyzeText(text) {
     }
   });
 
-  // Clickbait language
   clickbaitWords.forEach(word => {
     if (textLower.includes(word)) {
       score += 3;
@@ -74,7 +76,6 @@ function analyzeText(text) {
     }
   });
 
-  // Vague sources
   vagueSources.forEach(phrase => {
     if (textLower.includes(phrase)) {
       score += 2;
@@ -82,7 +83,6 @@ function analyzeText(text) {
     }
   });
 
-  // Conspiracy-related terms
   conspiracyKeywords.forEach(keyword => {
     if (textLower.includes(keyword)) {
       score += 4;
@@ -90,7 +90,6 @@ function analyzeText(text) {
     }
   });
 
-  // Final label based on score
   let label;
   if (score >= 8) {
     label = "❌ Potentially Misleading";
