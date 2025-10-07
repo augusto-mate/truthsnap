@@ -61,19 +61,33 @@ function analyzeText(text) {
   const fakeClaimPatterns = [
     {
       keywords: ["vaccines", "autism"],
-      reason: "Reference to debunked link between vaccines and autism."
+      reason: "Reference to debunked link between vaccines and autism.",
+      weight: 7
     },
     {
       keywords: ["moon landing", "fake"],
-      reason: "Claim suggesting the moon landing was faked."
+      reason: "Claim suggesting the moon landing was faked.",
+      weight: 7
     },
     {
       keywords: ["earth", "flat"],
-      reason: "Flat Earth theory reference."
+      reason: "Flat Earth theory reference.",
+      weight: 6
     },
     {
       keywords: ["climate change", "hoax"],
-      reason: "Denial of scientifically proven climate change."
+      reason: "Denial of scientifically proven climate change.",
+      weight: 7
+    },
+    {
+      keywords: ["government", "hiding", "truth"],
+      reason: "General claim of hidden government secrets or coverups.",
+      weight: 6
+    },
+    {
+      keywords: ["government", "hiding", "aliens"],
+      reason: "Classic conspiracy about government hiding alien contact.",
+      weight: 6
     }
   ];
 
@@ -121,7 +135,7 @@ function analyzeText(text) {
   fakeClaimPatterns.forEach(pattern => {
     const match = pattern.keywords.every(word => textLower.includes(word));
     if (match) {
-      score += 5;
+      score += pattern.weight;
       reasons.push(pattern.reason);
     }
   });
