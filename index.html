@@ -9,25 +9,27 @@
 <body>
   <main>
     <h1>TruthSnap 🕵️‍♂️</h1>
+
     <textarea
       id="inputText"
       placeholder="Paste news article or text here..."
       aria-label="Input text"
     ></textarea>
+
     <div class="buttons">
       <button onclick="analyze()">Analyze</button>
-      <button onclick="toggleDebug()">🔍 Toggle Debug Mode</button>
-      <button onclick="clearText()">🧹 Clear Text</button>
+      <button onclick="toggleDebug()">🔍 Debug</button>
+      <button onclick="clearText()">🧹 Clear</button>
     </div>
 
-    <section id="result" aria-live="polite" class="result-message"></section>
+    <section id="result" class="result-message" aria-live="polite"></section>
     <section id="details" class="details"></section>
+
+    <footer>
+      <p>Made with 💡 by Augusto &middot; &copy; 2025</p>
+    </footer>
   </main>
 
-  <footer>
-    Made with 💡 by Augusto Mate &middot; &copy; 2025
-  </footer>
-  
   <script src="script.js"></script>
 </body>
 </html>
