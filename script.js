@@ -50,12 +50,25 @@ function analyzeText(text) {
     "shocking", "you won’t believe", "secret", "hidden", "what happened next",
     "miracle", "cure", "dangerous", "exposed", "banned", "explosive", "urgent"
   ];
-  const vagueSources = ["experts say", "some people claim", "they say", "studies show", "researchers believe"];
-  const conspiracyKeywords = ["microchip", "bill gates", "5g", "plandemic", "deep state"];
+  const vagueSources = [
+    "experts say", "some people claim", "they say", "studies show", "researchers believe"
+  ];
+  const conspiracyKeywords = [
+    "microchip", "bill gates", "5g", "plandemic", "deep state",
+    "flat earth", "chemtrails", "illuminati", "crisis actors", "climate change hoax"
+  ];
+
+  const knownFalseClaims = [
+    "vaccines cause autism",
+    "moon landing was fake",
+    "earth is flat",
+    "climate change is a hoax"
+  ];
 
   const textLower = text.toLowerCase();
 
-  if (upperCount > 30) {
+  // Apply weights
+  if (upperCount > 20) {
     score += 4;
     reasons.push("Excessive use of uppercase letters.");
   }
@@ -89,7 +102,14 @@ function analyzeText(text) {
   conspiracyKeywords.forEach(keyword => {
     if (textLower.includes(keyword)) {
       score += 4;
-      reasons.push(`Reference to known conspiracy theory: "${keyword}"`);
+      reasons.push(`Reference to conspiracy theory: "${keyword}"`);
+    }
+  });
+
+  knownFalseClaims.forEach(claim => {
+    if (textLower.includes(claim)) {
+      score += 5;
+      reasons.push(`Known false claim detected: "${claim}"`);
     }
   });
 
@@ -105,6 +125,7 @@ function analyzeText(text) {
   return { label, score, reasons };
 }
 
+// Ensure fresh state on reload
 window.addEventListener("load", () => {
-  clearText(); // Clear all fields on page load
+  clearText();
 });
