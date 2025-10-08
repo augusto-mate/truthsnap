@@ -1,23 +1,23 @@
 let debugMode = false;
 
-// Toggle debug mode on/off and alert user
+// Toggle debug mode and show status
 function toggleDebug() {
   debugMode = !debugMode;
   alert("Debug mode " + (debugMode ? "enabled" : "disabled"));
 }
 
-// Clear input textarea and result display
+// Clear the textarea and results
 function clearText() {
   document.getElementById("inputText").value = "";
   document.getElementById("result").innerText = "";
   document.getElementById("details").innerHTML = "";
 }
 
-// Main analyze function called on button click
+// Called when user clicks "Analyze"
 function analyze() {
   const text = document.getElementById("inputText").value.trim();
 
-  // Clear previous results
+  // Clear previous outputs
   document.getElementById("result").innerText = "";
   document.getElementById("details").innerHTML = "";
 
@@ -28,7 +28,6 @@ function analyze() {
 
   const { label, score, reasons } = analyzeText(text);
 
-  // Display label and detailed reasons
   document.getElementById("result").innerText = label;
   document.getElementById("details").innerHTML = `
     <strong>Score:</strong> ${score}<br>
@@ -36,19 +35,18 @@ function analyze() {
     <ul>${reasons.map(r => `<li>${r}</li>`).join("")}</ul>
   `;
 
-  // Debug logs if enabled
   if (debugMode) {
     console.log("Score:", score);
     console.log("Reasons:", reasons);
   }
 }
 
-// Core analysis logic returning label, score, and reasons
+// Heuristic analysis
 function analyzeText(text) {
   let score = 0;
   let reasons = [];
+  let hasConspiracyOrFakeClaim = false;
 
-  // Normalize text: lowercase, remove quotes & punctuation, trim spaces
   const normalize = str =>
     str
       .toLowerCase()
@@ -59,11 +57,9 @@ function analyzeText(text) {
 
   const input = normalize(text);
 
-  // Count uppercase letters and exclamation marks in original text
   const upperCount = (text.match(/[A-Z]/g) || []).length;
   const exclamations = (text.match(/!/g) || []).length;
 
-  // Heuristic keyword lists
   const absoluteWords = ["always", "never", "everyone", "no one", "all", "none"];
   const clickbaitWords = [
     "shocking", "you won’t believe", "secret", "hidden", "what happened next",
@@ -77,7 +73,6 @@ function analyzeText(text) {
     "flat earth", "chemtrails", "illuminati", "crisis actors", "climate change hoax"
   ];
 
-  // Patterns for common fake claims with weighted scores
   const fakeClaimPatterns = [
     {
       keywords: ["vaccines", "autism"],
@@ -111,42 +106,42 @@ function analyzeText(text) {
     }
   ];
 
-  // Apply heuristics and accumulate score & reasons
   if (upperCount > 20) {
-    score += 3;
+    score += 2;
     reasons.push("Excessive use of uppercase letters.");
   }
 
   if (exclamations > 2) {
-    score += 2;
+    score += 1;
     reasons.push("Overuse of exclamation marks.");
   }
 
   absoluteWords.forEach(word => {
     if (input.includes(word)) {
-      score += 1;
+      score += 0.5;
       reasons.push(`Use of absolute term: "${word}"`);
     }
   });
 
   clickbaitWords.forEach(word => {
     if (input.includes(word)) {
-      score += 2;
-      reasons.push(`Possible sensational language: "${word}"`);
+      score += 1;
+      reasons.push(`Sensational language detected: "${word}"`);
     }
   });
 
   vagueSources.forEach(phrase => {
     if (input.includes(phrase)) {
-      score += 2;
-      reasons.push(`Vague or unverified source: "${phrase}"`);
+      score += 1;
+      reasons.push(`Vague or unverifiable source: "${phrase}"`);
     }
   });
 
   conspiracyKeywords.forEach(keyword => {
     if (input.includes(keyword)) {
-      score += 3;
-      reasons.push(`Reference to conspiracy keyword: "${keyword}"`);
+      score += 2.5;
+      hasConspiracyOrFakeClaim = true;
+      reasons.push(`Conspiracy reference: "${keyword}"`);
     }
   });
 
@@ -154,13 +149,14 @@ function analyzeText(text) {
     const match = keywords.every(word => input.includes(word));
     if (match) {
       score += weight;
+      hasConspiracyOrFakeClaim = true;
       reasons.push(reason);
     }
   });
 
-  // Determine label by score thresholds
+  // Define label logic
   let label;
-  if (score >= 7) {
+  if (score >= 7 && hasConspiracyOrFakeClaim) {
     label = "❌ Potentially Misleading";
   } else if (score >= 4) {
     label = "⚠️ Needs Caution";
@@ -171,5 +167,5 @@ function analyzeText(text) {
   return { label, score, reasons };
 }
 
-// Clear content on page load
+// Clear inputs on initial page load
 window.addEventListener("load", clearText);
