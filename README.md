@@ -1,51 +1,51 @@
-# 🔍 TruthSnap
+# 🔍 TruthSnap – Simulated Fake News Detection Tool
 
-[![Live Demo](https://img.shields.io/badge/demo-online-success?style=flat-square&logo=github)](https://augusto047.github.io/truthsnap/)
-![Last Commit](https://img.shields.io/github/last-commit/Augusto047/truthsnap?style=flat-square)
-![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen?style=flat-square&logo=firefox)](https://augusto047.github.io/truthsnap/)
+![Last Commit](https://img.shields.io/github/last-commit/Augusto047/truthsnap?style=flat-square&logo=git)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&logo=open-source-initiative)
 
-**TruthSnap** is a lightweight, educational tool that simulates a fake news detection mechanism.  
-By analyzing user-submitted text, it flags potential signs of manipulation based on tone, language patterns, and structure — all without relying on external APIs or machine learning.
+**TruthSnap** is a lightweight, browser-based tool that simulates fake news detection using handcrafted rules.  
+It analyzes input text and flags potential signs of misinformation — all without external APIs or machine learning.
 
 ## 🧠 The Problem
 
-Misinformation spreads faster than facts — especially when wrapped in emotional, misleading language.  
-Most people can't distinguish between subtle manipulation and objective reporting.
+Misinformation spreads faster than facts — especially when disguised as emotional, exaggerated, or vague content.  
+Most readers struggle to spot manipulation in headlines, articles, or viral posts.
 
 ## 💡 The Solution
 
-TruthSnap offers a quick “gut check” for any piece of content. It simulates how experts might scan for red flags in news articles, blog posts, or social media content using handcrafted rules based on:
+TruthSnap offers a quick “gut check” for written content. It simulates how media experts or fact-checkers might evaluate language cues, tone, and structure using a rule-based system:
 
-- Emotional language intensity
-- Clickbait indicators (excessive caps, exclamations, absolutes)
-- Lack of citations or vague sources
-- Repetition of certain keywords
+- Emotional intensity or exaggerated punctuation  
+- Clickbait triggers (all-caps, exclamations, absolutes)  
+- Vague or unverifiable sources  
+- Common conspiracy-related keywords  
+- Known patterns of misinformation
 
 ## ⚙️ How It Works
 
 1. Paste a news excerpt or social media post  
-2. Click "Analyze"  
-3. TruthSnap runs a basic textual analysis and shows one of the following:
+2. Click **Analyze**  
+3. Receive a risk label and reasoning:
 
 - ✅ Likely Trustworthy  
 - ⚠️ Needs Caution  
 - ❌ Potentially Misleading
 
-## 🛠️ Tech Stack
-
-- HTML5 (semantic layout)  
-- CSS3 (responsive design)  
-- JavaScript (basic text analysis logic)  
-- Git & GitHub (version control & Pages)
-
 ## 🧪 Features
 
-- Instant, rule-based analysis  
-- No external dependencies  
-- Works entirely in the browser  
-- Educational and privacy-friendly (no data sent anywhere)  
-- Mobile responsive UI  
-- Button to clear text easily  
+- Instant rule-based analysis (no dependencies)  
+- Fully runs in the browser — no login or data storage  
+- Mobile-responsive interface  
+- Debug mode for transparency  
+- Clear button to reset input instantly  
+
+## 🛠️ Tech Stack
+
+- **HTML5** – semantic layout  
+- **CSS3** – responsive, accessible UI  
+- **JavaScript** – lightweight detection logic  
+- **GitHub Pages** – live hosting & open source
 
 ## 🖼️ Screenshots
 
@@ -55,26 +55,26 @@ TruthSnap offers a quick “gut check” for any piece of content. It simulates 
 ### 📱 Mobile
 ![Mobile Screenshot](./assets/screenshot-mobile.jpg)
 
-## 🚧 Future Improvements
+## 🧭 Intended Use & Limitations
 
-See [`FUTURE.md`](FUTURE.md) for roadmap ideas and potential enhancements, including:
+TruthSnap is a **simulation**, not a definitive detector.  
+It is based on **heuristic rules**, meaning:
 
-- Word frequency analysis  
-- User feedback loop  
-- Real-time news scraping  
-- Multilingual support  
-- Advanced NLP integration  
+- Some false claims may pass as neutral  
+- Some true claims may be flagged  
+- No connection to real-time fact-checking databases
 
-## ⚠️ Limitations
+👉 Best used as a tool for **awareness, education**, or **media literacy exercises**.
 
-TruthSnap is a **simulation**, not a definitive classifier.  
-It uses **rule-based logic**, which means:
+## 🗺️ Roadmap
 
-- Some false claims may pass undetected  
-- Some true claims may raise red flags  
-- There's no live connection to fact-check databases
+Future improvements are listed in [`FUTURE.md`](FUTURE.md), including:
 
-👉 Ideal for **educational or exploratory** use — not production.
+- Word frequency heatmap  
+- Real-time content scraping  
+- User feedback learning loop  
+- NLP & AI integration  
+- Multilingual support 
 
 ## 📂 Run locally
 
@@ -95,3 +95,7 @@ Frontend Developer passionate about tools that empower critical thinking.
 - 🔗 [LinkedIn](https://linkedin.com/in/augustomate)
 - 💻 [GitHub](https://github.com/Augusto047)
 - ✉️ mate.augusto.mz@gmail.com
+
+---
+
+🚀 **Live Demo**: [TruthSnap on GitHub Pages](https://augusto047.github.io/truthsnap/)
