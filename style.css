@@ -1,3 +1,4 @@
+/* General reset and layout */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,13 +10,14 @@ body {
   background-color: #f4f7fa;
   color: #333;
   line-height: 1.5;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 0 20px;
 }
 
+/* Central container */
 main {
   background: #fff;
   border-radius: 10px;
@@ -23,11 +25,13 @@ main {
   max-width: 700px;
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Title */
 h1 {
   font-weight: 700;
   font-size: 2rem;
@@ -36,6 +40,7 @@ h1 {
   text-align: center;
 }
 
+/* Textarea */
 textarea {
   width: 100%;
   height: 180px;
@@ -55,6 +60,7 @@ textarea:focus {
   box-shadow: 0 0 8px #1a73e8aa;
 }
 
+/* Buttons container */
 .buttons {
   display: flex;
   gap: 10px;
@@ -63,6 +69,7 @@ textarea:focus {
   flex-wrap: wrap;
 }
 
+/* Buttons */
 button {
   background-color: #1a73e8;
   border: none;
@@ -78,10 +85,11 @@ button {
 
 button:hover,
 button:focus {
-  background-color: #155ab6;
+  background-color: #0f4fa3;
   outline: none;
 }
 
+/* Result section */
 .result-message {
   font-size: 1.3rem;
   font-weight: 700;
@@ -89,6 +97,7 @@ button:focus {
   margin-bottom: 12px;
 }
 
+/* Explanation/details section */
 .details {
   background: #eef4fb;
   border-radius: 8px;
@@ -100,15 +109,32 @@ button:focus {
   line-height: 1.4;
   box-shadow: inset 0 0 5px #cfd8e6;
   width: 100%;
+  transition: all 0.3s ease;
 }
 
 .details ul {
   padding-left: 20px;
 }
 
+/* Footer */
 footer {
   margin-top: 30px;
   text-align: center;
   font-size: 0.9rem;
   color: #777;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  main {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
 }
