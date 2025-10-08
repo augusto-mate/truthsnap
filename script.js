@@ -1,16 +1,19 @@
 let debugMode = false;
 
+// Toggle debug mode on/off and alert user
 function toggleDebug() {
   debugMode = !debugMode;
   alert("Debug mode " + (debugMode ? "enabled" : "disabled"));
 }
 
+// Clear input textarea and result display
 function clearText() {
   document.getElementById("inputText").value = "";
   document.getElementById("result").innerText = "";
   document.getElementById("details").innerHTML = "";
 }
 
+// Main analyze function called on button click
 function analyze() {
   const text = document.getElementById("inputText").value.trim();
 
@@ -25,6 +28,7 @@ function analyze() {
 
   const { label, score, reasons } = analyzeText(text);
 
+  // Display label and detailed reasons
   document.getElementById("result").innerText = label;
   document.getElementById("details").innerHTML = `
     <strong>Score:</strong> ${score}<br>
@@ -32,16 +36,19 @@ function analyze() {
     <ul>${reasons.map(r => `<li>${r}</li>`).join("")}</ul>
   `;
 
+  // Debug logs if enabled
   if (debugMode) {
     console.log("Score:", score);
     console.log("Reasons:", reasons);
   }
 }
 
+// Core analysis logic returning label, score, and reasons
 function analyzeText(text) {
   let score = 0;
   let reasons = [];
 
+  // Normalize text: lowercase, remove quotes & punctuation, trim spaces
   const normalize = str =>
     str
       .toLowerCase()
@@ -52,9 +59,11 @@ function analyzeText(text) {
 
   const input = normalize(text);
 
+  // Count uppercase letters and exclamation marks in original text
   const upperCount = (text.match(/[A-Z]/g) || []).length;
   const exclamations = (text.match(/!/g) || []).length;
 
+  // Heuristic keyword lists
   const absoluteWords = ["always", "never", "everyone", "no one", "all", "none"];
   const clickbaitWords = [
     "shocking", "you won’t believe", "secret", "hidden", "what happened next",
@@ -68,6 +77,7 @@ function analyzeText(text) {
     "flat earth", "chemtrails", "illuminati", "crisis actors", "climate change hoax"
   ];
 
+  // Patterns for common fake claims with weighted scores
   const fakeClaimPatterns = [
     {
       keywords: ["vaccines", "autism"],
@@ -101,7 +111,7 @@ function analyzeText(text) {
     }
   ];
 
-  // Apply heuristic patterns
+  // Apply heuristics and accumulate score & reasons
   if (upperCount > 20) {
     score += 3;
     reasons.push("Excessive use of uppercase letters.");
@@ -148,6 +158,7 @@ function analyzeText(text) {
     }
   });
 
+  // Determine label by score thresholds
   let label;
   if (score >= 7) {
     label = "❌ Potentially Misleading";
@@ -160,7 +171,5 @@ function analyzeText(text) {
   return { label, score, reasons };
 }
 
-// Clear content on load
-window.addEventListener("load", () => {
-  clearText();
-});
+// Clear content on page load
+window.addEventListener("load", clearText);
