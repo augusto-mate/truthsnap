@@ -7,6 +7,12 @@
 **TruthSnap** is a lightweight, browser-based tool that simulates fake news detection using handcrafted rules.  
 It analyzes input text and flags potential signs of misinformation — all without external APIs or machine learning.
 
+## 🎯 Pitch Deck
+For a quick overview of the project, check out the presentation [here](./assets/PitchDeck_TruthSnap_2025.pdf).  
+
+This short deck outlines the core idea behind **TruthSnap**.  
+It's intended for stakeholders, collaborators, and anyone interested in the project's vision and potential impact.
+
 ## 🧠 The Problem
 
 Misinformation spreads faster than facts — especially when disguised as emotional, exaggerated, or vague content.  
@@ -14,7 +20,7 @@ Most readers struggle to spot manipulation in headlines, articles, or viral post
 
 ## 💡 The Solution
 
-TruthSnap offers a quick “gut check” for written content. It simulates how media experts or fact-checkers might evaluate language cues, tone, and structure using a rule-based system:
+**TruthSnap** offers a quick “gut check” for written content. It simulates how media experts or fact-checkers might evaluate language cues, tone, and structure using a rule-based system:
 
 - Emotional intensity or exaggerated punctuation  
 - Clickbait triggers (all-caps, exclamations, absolutes)  
@@ -57,7 +63,7 @@ TruthSnap offers a quick “gut check” for written content. It simulates how m
 
 ## 🧭 Intended Use & Limitations
 
-TruthSnap is a **simulation**, not a definitive detector.  
+**TruthSnap** is a **simulation**, not a definitive detector.  
 It is based on **heuristic rules**, meaning:
 
 - Some false claims may pass as neutral  
