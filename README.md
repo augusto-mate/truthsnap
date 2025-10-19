@@ -1,6 +1,6 @@
 # 🔍 TruthSnap – Simulated Fake News Detection Tool
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen?style=flat-square&logo=firefox)](https://augusto047.github.io/truthsnap/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen?style=flat-square&logo=firefox)](https://augusto-mate.github.io/truthsnap/)
 ![Last Commit](https://img.shields.io/github/last-commit/Augusto047/truthsnap?style=flat-square&logo=git)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&logo=open-source-initiative)
 
@@ -85,7 +85,7 @@ Future improvements are listed in [`FUTURE.md`](FUTURE.md), including:
 ## 📂 Run locally
 
 ```bash
-git clone https://github.com/Augusto047/truthsnap.git
+git clone https://github.com/augusto-mate/truthsnap.git
 cd truthsnap
 # Open index.html in your browser
 ```
@@ -98,10 +98,10 @@ This project is under the [MIT License](LICENSE)
 
 **Augusto Mate**  
 Frontend Developer passionate about tools that empower critical thinking.  
-- 🔗 [LinkedIn](https://linkedin.com/in/augustomate)
-- 💻 [GitHub](https://github.com/Augusto047)
+- 🔗 [LinkedIn](https://linkedin.com/in/augusto-mate)
+- 💻 [GitHub](https://github.com/augusto-mate)
 - ✉️ mate.augusto.mz@gmail.com
 
 ---
 
-🚀 **Live Demo**: [TruthSnap on GitHub Pages](https://augusto047.github.io/truthsnap/)
+🚀 **Live Demo**: [TruthSnap on GitHub Pages](https://augusto-mate.github.io/truthsnap/)
